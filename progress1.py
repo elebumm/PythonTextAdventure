@@ -37,14 +37,82 @@ import time
 # [YYYY-MM-DD: bulleted list of details]
 # 2015-6-28:
 #   * Project started
-#
-#
+# 2015-7-7:
+#   * Nodes and Leaves structure added.
 #
 #
 #
 #
 #
 ################################################################################################
+################################################################################################
+# CLASS: NONE
+#
+# DESCRIPTION: Global variables.
+#
+################################################################################################
+    rootnode = None
+################################################################################################
+# CLASS: NODE AND LEAF
+#
+# DESCRIPTION: The base classes for all rooms(nodes) and items(leaves or nodes).
+#
+################################################################################################
+
+class Node(object):
+    
+    def __init__(self,name,description):
+        self.name = name
+        self.description = description
+        self.children = []
+
+    def addChild(self,child):
+        self.children.append(child)
+        child.parent = self.name
+
+    def listChildren(self):
+        for child in self.children:
+            print (child.description)
+            if isinstance(child,Node):
+                child.listChildren()
+            
+
+class Leaf(object):
+
+    def __init__(self,name,description):
+        self.name = name
+        self.description = description
+
+################################################################################################
+# CLASS: NONE
+#
+# DESCRIPTION: Functions to find and move the nodes around. Basically everything that can 
+#              contain something like a box with keys or stuff will inherit from node.
+#              Other items like keys will be leaves. If the player picks up keys from the box
+#              move_node will be used. It'll remove it from the box and place it in the player's
+#              inventory. Also search_node returns the object.
+#
+################################################################################################
+def search_node(nodename,rootnode):
+    nodefound = False
+    for child in rootnode.children:
+        if child.name == nodename:
+            nodefound = True
+            return child
+        elif isinstance(child,Node):
+            search_node(nodename,child)
+    if nodefound is False:
+        print ("Sorry no such item found.")
+
+
+def move_node(obj,destination):
+    if isinstance(destination,(Node,Creature)):
+        parentnode = search_node(obj.parent,rootnode)   ##Always pass the topmost?
+        parentnode.children.remove(obj)
+        destination.addChild(obj)
+    else:
+        print("Sorry. The destination cannot contain anything.")
+
 
 ################################################################################################
 # CLASS: Room
@@ -53,23 +121,71 @@ import time
 #
 ################################################################################################
 
-class Player(object):
+class Room(Node):
+
+    exits = "ns"
+
+    def __init__(self, name, descriptions, exits):
+        self.name = name
+        self.descriptions = descriptions
+        self.exits = exits
+        self.children = []
+        self.room_name()
+
+    def room_name(self):
+        print("You are in the " + self.name + "\n")
+
+    ## Examine a room and change it's description from
+    def examine(self):
+        print ("This room has - ", end="")
+        self.listChildren()
+
+    ## Alter the movement options for the parser.
+    ## show_exits is a debugging method
+    def show_exits(self):
+        print(self.exits)
+
+    def add_exits(self, exitsAdded):
+        for char in exitsAdded:
+            if char not in self.exits:
+                self.exits += exitsAdded
+
+    def remove_exits(self, exitsRemoved):
+        for char in exitsRemove:
+            self.exits.replace(char, "")
+
+################################################################################################
+# CLASS: Creature
+#
+# DESCRIPTION: The Creature base class for player and enemies.
+#
+################################################################################################
+
+class Creature(object):
+
+    def __init__(self,name,description,weakness):
+        self.name = name
+        self.description = description
+        self.weakness = weakness
+        isAlive = True
+
+    ## What will all creatures have? Abilities? 
+
+################################################################################################
+# CLASS: Player
+#
+# DESCRIPTION: The Player class
+#
+################################################################################################
+class Player(Creature):
 
     ## Personally I wouldn't like health or stats in a text-based game
     ## I don't mind simple attributes though
-    name = ""
     abilities = {'rustic': 0, 'milquetoast': 1, 'charlie': 2, 'apex': 3}
     ability = 0
     # lots of property ideas
-    description = ""
-    visibility = "visible"
-    
 
-    def __init__(self):
-        print("Player created")
-
-    def set_name(self, name):
-        self.name = name
+    visibility = "visible" #What for? Can the player become invisible?
 
     def get_name(self): ## debugging, might be useful for
         print(self.name)
@@ -80,14 +196,12 @@ class Player(object):
 
     def get_ability(self):
         return self.ability
-
-class GameEvent(object):
-
-    event_type = ""
-
-    def __init__(self, event_type):
-        self.event_type = event_type
-        #print(self.event_type)
+################################################################################################
+# CLASS: SPEECH 
+#
+# DESCRIPTION: The speech classes and bulk speech
+#
+################################################################################################
 
 class SpeechEvent(GameEvent):
 
@@ -122,54 +236,14 @@ def bulk_speechEvent(speakerList, messageList, sleep):
         current.pm()
         time.sleep(sleep)
         
+class GameEvent(object):
 
-class Room(object):
+    event_type = ""
 
-    name = ""
-    descriptions = []
-    exits = "ns"
+    def __init__(self, event_type):
+        self.event_type = event_type
+        #print(self.event_type)
 
-    descIndex = 0
-
-    def __init__(self, name, descriptions, exits):
-        self.name = name
-        self.descriptions = descriptions
-        self.exits = exits
-        self.room_name()
-
-    def room_name(self):
-        print("You are in the " + self.name)
-        print()
-
-    ## Examine a room and change it's description from
-    def examine(self):
-        print(self.descriptions[self.descIndex])
-        print()
-
-    ## Perhaps decide between having a description list or...
-    def change_descIndex(self, descIndex):
-        self.descIndex = descIndex
-
-    ## Just have a set_description method with a description that you can set on the fly.
-    ## Current solution is to add a description to the descriptions list
-    ## and set the descIndex to the last element.
-    def set_description(self, description):
-        self.descriptions.append(description)
-        self.descIndex = len(self.descriptions) - 1
-
-    ## Alter the movement options for the parser.
-    ## show_exits is a debugging method
-    def show_exits(self):
-        print(self.exits)
-
-    def add_exits(self, exitsAdded):
-        for char in exitsAdded:
-            if char not in self.exits:
-                self.exits += exitsAdded
-
-    def remove_exits(self, exitsRemoved):
-        for char in exitsRemove:
-            self.exits.replace(char, "")
 
 class Item(object):
 

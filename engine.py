@@ -15,6 +15,7 @@ class Player(object):
     description = ""
     visibility = "visible"
 
+
     def __init__(self):
         print("Player created")
 
@@ -30,6 +31,9 @@ class Player(object):
 
     def get_ability(self):
         return self.ability
+
+   
+
 
 def calculate_ability(answer1, answer2):
     ## going to mix these up later
