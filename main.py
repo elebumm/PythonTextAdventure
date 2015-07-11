@@ -1,5 +1,5 @@
 import time
-import engine as eg
+from engine import *
 
 gi_mlist00 = [
     "HELLO AGAIN",
@@ -19,8 +19,8 @@ gi_mlist01 = [
     "WHAT IS YOUR NAME?"
 ]
 
-gi_00 = eg.SpeechEvent("", "THAT IS CORRECT", 0.5)
-gi_01 = eg.SpeechEvent("", "WHAT IS YOUR AGE?", 0)
+gi_00 = SpeechEvent("", "THAT IS CORRECT", 0.5)
+gi_01 = SpeechEvent("", "WHAT IS YOUR AGE?", 0)
 
 gi_mlist02 = [
     "//...",
@@ -51,7 +51,7 @@ def game_intro_detour():
     cheating = a and b
 
     if cheating:
-        eg.bulk_speech_event("", gid_mlist00, 0.5)
+        bulk_speech_event("", gid_mlist00, 0.5)
         action = input("> ")
         game_intro_billion_count(action)
 
@@ -75,14 +75,14 @@ def game_intro():
 
     
     # Character "Creation"
-    eg.bulk_speech_event("", gi_mlist00, 0)
+    bulk_speech_event("", gi_mlist00, 0)
 
     action = input("ENTER NAME: ")
     print()
 
     while action.lower() != "gustavo":
         name_wrong = True
-        eg.bulk_speech_event("", gi_mlist01, 0.5)
+        bulk_speech_event("", gi_mlist01, 0.5)
         action = input("ENTER NAME: ")
 
     #print(name_wrong)
@@ -95,10 +95,12 @@ def game_intro():
 
     while action != "23.4":
         age_wrong = True
-        eg.bulk_speech_event("", gi_mlist02, 0.5)
+        bulk_speech_event("", gi_mlist02, 0.5)
         action = input("ENTER AGE: ")
 
     gi_00.gm()
+
+    print(name_wrong, age_wrong)
 
     game_intro_detour()
 

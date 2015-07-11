@@ -8,7 +8,7 @@
 # CONTRIBUTORS:
 # * names here
 #
-# THEME: Sci-Fi, Robots, Artificial Intelligence, Military
+# THEMES: Sci-Fi, Robots, Artificial Intelligence, Military
 #
 # SETTING:
 # * Government-owned military research vessel
@@ -34,11 +34,16 @@
 # 2015-7-9:
 #   * Documentation added (ONGOING)
 #   * Integrating node and map systems into engine.py (IN PROGRESS)
-#   * Class parameters/methods fixed (IN PROGRESS)
-#   * Createing a demo for newcomers to understand the current structure (IN PROGRESS)
+#       * Instead make modules for each major system (route into engine.py?)
 #
+#   * Class self parameters/methods fix (Room, Player) (COMPLETE)
+#   * Creating a demo for newcomers to understand the current structure (IN PROGRESS)
+#       * Instead defer demo creation till all systems are meshed together nicely
 #
-#
+# 2015-7-10
+#   * Change introduction sequence to a GameEvent
+#   * Basic map generation and viewing (COMPLETE)
+#   
 #
 #
 #
@@ -146,7 +151,9 @@
 ################################################################################################
 
 ################################################################################################
+#
 # Node and Leaf
+#
 ################################################################################################
 
 # CLASS DEFINITION

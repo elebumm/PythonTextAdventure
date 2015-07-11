@@ -9,20 +9,46 @@ class Node(object):
         self.description = description
         self.children= []
 
-    def addChild(self, child):
-        self.children.append(child)
-        child.parent = self.name
+    #Name
+    def get_name(self):
+        print(self.name)
 
-    def get_children(self): #lists immediate children
+    def set_name(self, name):
+        self.name = name
+
+    #Description
+    def get_description(self):
+        print(self.description)
+
+    def set_description(self, description):
+        self.description = description
+
+    #Children
+    def add_child(self, child):
+        child.parent = self.name
+        self.children.append(child)
+
+    def remove_child(self, child):
+        child.parent = None
+        self.children.remove(child)
+
+    def list_children(self): #lists immediate children
         for c in self.children:
             print(c.name)
 
-    def get_children_deep(self):
+    def list_children_deep(self):
 
         for c in self.children:
             print(c.name)
             if isinstance(c, Node):
-                c.get_children_deep()
+                c.list_children_deep()
+
+    
+
+class ItemContainer(Node):
+
+    def __init__(self, name, description):
+        Node.__init__(self)
                 
 class Leaf(object):
 
@@ -30,12 +56,14 @@ class Leaf(object):
         self.name = name
         self.description = description
 
+    #Name
     def get_name(self):
         print(self.name)
 
     def set_name(self, name):
         self.name = name
 
+    #Description
     def get_description(self):
         print(self.description)
 
@@ -110,7 +138,7 @@ class Room(Node):
 class Item(Leaf):
     
     def __init__(self, name, description):
-        Leaf.__init__(self, name description)
+        Leaf.__init__(self, name, description)
 
 class Creature(object):
 
@@ -129,7 +157,7 @@ class Player(Creature):
     visibility = "visible" #Yes, for stealth and such. Maybe change to an integer value of 0 - 100
 
     def __init__(self, name, description, creature_type):
-        Creature.__init__(self, name description, creature_type)
+        Creature.__init__(self, name, description, creature_type)
         print("Debug: Player created")
         print()
 
