@@ -33,19 +33,41 @@
 #
 # 2015-7-9:
 #   * Documentation added (ONGOING)
-#   * Integrating node and map systems into engine.py (IN PROGRESS)
+#   * Integrating node and map systems into engine.py (ALTERNATE FIX)
 #       * Instead make modules for each major system (route into engine.py?)
 #
 #   * Class self parameters/methods fix (Room, Player) (COMPLETE)
-#   * Creating a demo for newcomers to understand the current structure (IN PROGRESS)
+#   * Creating a demo for newcomers to understand the current structure (ALTERNATE FIX)
 #       * Instead defer demo creation till all systems are meshed together nicely
 #
 # 2015-7-10
 #   * Change introduction sequence to a GameEvent
 #   * Basic map generation and viewing (COMPLETE)
 #   
+# 2015-7-12
+#   * Create separate modules for each major system (ONGOING)
+#   * Update module importing for new file structure (COMPLETE)
+#   * Update documentation.py to reflect new modules(IN PROGRESS)
 #
 #
+################################################################################################
+
+################################################################################################
+#
+# GENERAL INHERITANCE
+#
+#   * main.py // the file that is run to play the game
+#   * engine.py // collates all the engine files below
+#   * documentation.py // this file! you're reading it right now
+#
+#   * gameevent.py
+#
+#   * node.py
+#       * creature.py
+#           * player.py
+#       * gamemap.py
+#       * item.py
+#       * room.py
 #
 ################################################################################################
 
@@ -54,11 +76,10 @@
 #
 # This is a place for all your documentation and discussion question needs.
 #
+# Comments are sorted by file. See the Table of Contents Above for CTRL+F search
+#
 # TEMPLATES - Simply copy the templates below to get started. Try to keep your definitions in
 # the same order/location as in the engine.py file for easier lookup.
-#
-# COMMENTING IN engine.py - Try to keep your comments to single-line. If you see a method filled
-# with comments consider moving the comments here.
 #
 # VOTING FORM - If you have a simple design choice you want to vote on try this:
 #
