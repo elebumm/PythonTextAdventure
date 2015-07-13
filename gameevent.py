@@ -1,5 +1,3 @@
-import time
-
 ################################################################################################
 #
 # Use this as a reference for importing. Instead of "from gameevent import *" use:
@@ -17,6 +15,8 @@ import time
 #   * direction_check
 #
 ################################################################################################
+
+import time
 
 # CLEAN THIS UP START#
 

@@ -29,14 +29,14 @@ class Node(object):
 
     #Name
     def get_name(self):
-        print(self.name)
+        return(self.name)
 
     def set_name(self, name):
         self.name = name
 
     #Description
     def get_description(self):
-        print(self.description)
+        return(self.description)
 
     def set_description(self, description):
         self.description = description
@@ -69,14 +69,14 @@ class Leaf(object):
 
     #Name
     def get_name(self):
-        print(self.name)
+        return(self.name)
 
     def set_name(self, name):
         self.name = name
 
     #Description
     def get_description(self):
-        print(self.description)
+        return(self.description)
 
     def set_description(self, description):
         self.description = description

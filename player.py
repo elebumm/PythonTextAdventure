@@ -41,6 +41,7 @@ class Player(Creature):
     def get_ability(self):
         return self.ability
 
+## This needs to be changed
 def calculate_ability(answer1, answer2):
     ## going to mix these up later
     if answer1 and answer2:
