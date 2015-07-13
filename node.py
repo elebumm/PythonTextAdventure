@@ -51,8 +51,8 @@ class Node(object):
         self.children.remove(child)
 
     def list_children(self): #lists immediate children
-        for c in self.children:
-            print(c.name)
+        for child in self.children:
+            print(child.get_name())
 
     def list_children_deep(self):
 

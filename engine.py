@@ -19,4 +19,4 @@ from player import Player
 from gameevent import GameEvent, SpeechEvent, bulk_speech_event, direction_check
 
 # Map System
-from gamemap import GameMap
+from gamemap import GameMap, Floor, RandomFloor
