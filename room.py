@@ -21,18 +21,6 @@ class Room(Node):
     def __init__(self, name, description, exits):
         Node.__init__(self, name, description)
         self.exits = exits
-        self.get_name()
-
-    def get_name(self):
-        print("You are in the " + self.name)
-        print()
-
-    def set_description(self, description):
-        self.description = description
-        
-    def get_description(self):
-        print(self.description)
-        print()
         
     def get_exits(self): ## Debug
         print(self.exits)
@@ -46,5 +34,6 @@ class Room(Node):
         for char in exitsRemove:
             self.exits.replace(char, "")
 
-jungle = Room("jungle", "ballasjf", "nsew")
-jungle.get_exits()
+# TESTING
+# jungle = Room("jungle", "baller", "nsew")
+# jungle.get_exits()
