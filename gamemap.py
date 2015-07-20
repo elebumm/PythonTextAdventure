@@ -26,11 +26,12 @@ class GameMap(Node):
     # MAP SIZE INITIALIZATION
     def __init__(self, name, description, width, height):
         Node.__init__(self, name, description)
-        
+
         self.width = width if width >= 0 else -width
         self.height = height if height >= 0 else -height
-            
+
         self.map_grid = [[False]*self.height for row in range(self.width)]
+        self.goal_status = False
 
     def get_width(self):
         return self.width
@@ -40,6 +41,9 @@ class GameMap(Node):
 
     def get_area(self):
         return "This floor is " + str(self.height) + " cells tall by " + str(self.width) + " cells wide. Total Area: " + str(self.height * self.width)
+
+    def get_goal_status(self):
+        return self.goal_status
 
     # Rooms // wraps Node children methods
     def add_room(self, room, coordinate):
@@ -52,6 +56,18 @@ class GameMap(Node):
 
     def list_rooms(self): #lists floor Room objects
         Node.list_children(self)
+
+    # Entrance is the room you start in when you change floors.
+    def set_entrance(self, coordinate):
+        self.entrance = self.map_grid[coordinate[0]][coordinate[1]]
+        self.entrance_coordinate = [coordinate[0], coordinate[1]]
+
+    def get_entrance(self):
+        return self.entrance.name
+
+    # Set floor completion to True, unlocking ability to ascend to next floor
+    def set_goal_status(self, status):
+        self.goal_status = status
 
     ## MAP VISUALIZATION
     def correct_map_orientation(self): # Rotate map 90 degrees counterclockwise.
@@ -75,7 +91,7 @@ class GameMap(Node):
         for i in range(0, self.height + 2): # Top Border
             print(border, end = " ")
         print() # newline
-        
+
         for j in range(0, self.width): # Map Cells
 
             print(border, end = " ") # left border
@@ -96,7 +112,7 @@ class GameMap(Node):
                     print(empty, end = " ")
 
             print(border) #right border
-            
+
         for i in range(0, self.height + 2): # Bottom Border
             print(border, end = " ")
         print("\n") # 2 newlines
@@ -152,6 +168,7 @@ class RandomFloor(GameMap):
             if not self.map_grid[x][y]:
                 if room_count == 0:
                     self.map_grid[x][y] = "Start"
+                    # set_entrance(here)
                     room_count += 1
                 elif room_count == self.total_rooms - 1:
                     self.map_grid[x][y] = "End"

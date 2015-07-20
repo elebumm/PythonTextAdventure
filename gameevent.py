@@ -106,34 +106,7 @@ def action_is_bool(input_string, desired_bool):
             break
         else:
             return False
-            
-# Movement parsing
 
-def direction_check(exits, action):
-
-    if action.lower() == "north" or action.lower() == "n":
-        if "n" in exits:
-            y += 1
-            room = (x, y)
-    #else: // Custom failure message
-
-    elif action.lower() == "south" or action.lower() == "s":
-        if "s" in exits:
-            y -= 1
-            room = (x, y)
-
-    elif action.lower() == "east" or action.lower() == "e":
-        if "e" in exits:
-            x += 1
-            room = (x, y)
-
-    elif action.lower() == "west" or action.lower() == "w":
-        if "w" in exits:
-            x -= 1
-            room = (x, y)
-
-    else: # Generic failure message
-        print("You cannot go that way.")
 
 # CLEAN THIS UP END #
 
