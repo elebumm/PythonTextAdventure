@@ -21,9 +21,13 @@ class Room(Node):
     def __init__(self, name, description, exits):
         Node.__init__(self, name, description)
         self.exits = exits
+
+    def onload(self):
+        print(self.description)
+        print()
         
     def get_exits(self): ## Debug
-        print(self.exits)
+        return self.exits
 
     def add_exits(self, exitsAdded):
         for char in exitsAdded:
