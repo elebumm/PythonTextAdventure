@@ -14,14 +14,7 @@
 #
 ################################################################################################
 
-from node import Node, Leaf, node_search, node_search_deep, node_move
-
-# class Creature(Node):
-
-#     def __init__(self, name, description):
-#         Node.__init__(self, name, description)
-#         self.creature_type = creature_type
-#         self.isAlive = True
+from node import Node, node_search, node_move
 
 class Creature(Node):
 
@@ -40,7 +33,8 @@ class Creature(Node):
     	self.health -= final_damage
     	
 
-    def 
+    def something():
+        pass
 
 
 # Damage formulas
