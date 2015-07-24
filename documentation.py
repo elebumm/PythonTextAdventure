@@ -49,6 +49,10 @@
 #   * Update module importing for new file structure (COMPLETE)
 #   * Update documentation.py to reflect new modules(IN PROGRESS)
 #
+# 2015-7-21
+#   * Several updates to core system (node.py & leaf.py, floor.py) (COMPLETED)
+#   * Tons of code examples added to modules (ONGOING)
+#
 #
 ################################################################################################
 
